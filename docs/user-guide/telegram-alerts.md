@@ -1,0 +1,79 @@
+# Đọc Alert Telegram
+
+Hướng dẫn đọc và sử dụng các alert được gửi qua Telegram channel.
+
+## Các loại alert
+
+### 1. Squeeze Risk
+
+**Điều kiện:** Score > 85 và giá đang đứng yên (Stall = YES).
+
+**Cooldown:** 30 phút giữa 2 alert cùng loại cho cùng symbol.
+
+**Ý nghĩa:** Áp lực tích tụ lớn, có thể xảy ra biến động mạnh theo bất kỳ hướng nào.
+
+**Gợi ý:** Không trade ngay — chờ xem giá break theo hướng nào trước khi hành động.
+
+---
+
+### 2. Crowded Long + Price Stall
+
+**Điều kiện:** Funding cao (dương) + OI tăng + giá đứng yên.
+
+**Cooldown:** 2 giờ.
+
+**Ý nghĩa:** Long side đông đúc, giá bị "kẹp". Nguy cơ dump nếu Long bị force-close.
+
+---
+
+### 3. Crowded Short + Price Stall
+
+**Điều kiện:** Funding âm sâu + OI tăng + giá đứng yên.
+
+**Cooldown:** 2 giờ.
+
+**Ý nghĩa:** Short side đông đúc. Nguy cơ short squeeze nếu giá bật lên.
+
+---
+
+## Giải thích từng field trong alert
+
+Ví dụ alert thực:
+
+```
+🚨 BTCUSDT — Crowded Long
+Score:    92/100
+Funding:  +0.0312% (P85)
+ΔOI:      +2.3%  (z=2.1)
+Volume:   ×3.2 avg (z=1.9)
+Stall:    YES — price flat 15m
+📊 TradingView
+```
+
+| Field | Ví dụ | Ý nghĩa |
+|---|---|---|
+| **Symbol** | BTCUSDT | Coin đang bị cảnh báo |
+| **Label** | Crowded Long | Loại mất cân bằng được phát hiện |
+| **Score** | 92/100 | Mức độ nghiêm trọng (0–100) |
+| **Funding** | +0.0312% (P85) | Funding rate hiện tại + phân vị so với 7 ngày qua |
+| **ΔOI** | +2.3% (z=2.1) | OI thay đổi bao nhiêu so với trung bình (z-score) |
+| **Volume** | ×3.2 avg (z=1.9) | Volume cao hơn bình thường bao nhiêu lần |
+| **Stall** | YES / NO | Giá có đang đứng yên không (< 0.2% trong 15 phút) |
+| **Link** | TradingView | Mở chart trực tiếp trên TradingView |
+
+## Cooldown — Tại sao không phải lúc nào cũng có alert?
+
+Hệ thống có cơ chế cooldown để tránh spam alert liên tục:
+
+| Loại alert | Cooldown |
+|---|---|
+| Squeeze Risk | 30 phút |
+| Crowded Long / Short | 2 giờ |
+
+**Cooldown tính riêng theo từng loại** — Squeeze và Crowded của cùng một symbol hoạt động độc lập với nhau.
+
+**Ví dụ:** Nếu BTCUSDT vừa nhận Crowded Long lúc 10:00, alert Crowded Long tiếp theo sẽ không được gửi trước 12:00. Nhưng nếu Score vượt 85 và Stall = YES lúc 10:30, alert Squeeze Risk vẫn có thể được gửi bình thường.
+
+::: tip Kiểm tra lịch sử
+Nếu bạn cảm thấy nên có alert nhưng không nhận được, truy cập dashboard → Signal History để xem cooldown status.
+:::

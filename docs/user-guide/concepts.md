@@ -1,0 +1,83 @@
+# Khái niệm cốt lõi
+
+Trang này giải thích các khái niệm bạn sẽ thấy trong alert và dashboard. Không cần biết kỹ thuật — chỉ cần hiểu **ý nghĩa thực tế**.
+
+::: info
+Sản phẩm này **không dự đoán giá**. Nó đo mức độ mất cân bằng Long/Short trên thị trường futures — quyết định trade là của bạn.
+:::
+
+## Imbalance Score (0–100)
+
+Điểm tổng hợp đo mức độ mất cân bằng Long/Short của một symbol tại thời điểm hiện tại.
+
+| Score | Ý nghĩa |
+|---|---|
+| 0–49 | Thị trường bình thường, không có tín hiệu đáng lo ngại |
+| 50–79 | Bắt đầu mất cân bằng — cần theo dõi |
+| 80–84 | Mất cân bằng đáng kể — alert có thể được gửi |
+| 85–100 | Mất cân bằng nghiêm trọng — nguy cơ squeeze cao |
+
+Score được tính từ 4 yếu tố: Funding Rate, Open Interest, Volume spike, và Price Stall.
+
+## Crowded Long
+
+Quá nhiều người đang giữ vị thế Long trên thị trường futures.
+
+- **Dấu hiệu:** Funding rate dương cao, OI tăng mạnh.
+- **Rủi ro:** Nếu giá giảm nhẹ, hàng loạt Long bị liquidation → giá giảm tiếp (cascade dump).
+- **Trong alert:** Label "Crowded Long", Funding mang dấu `+`.
+
+## Crowded Short
+
+Quá nhiều người đang giữ vị thế Short trên thị trường futures.
+
+- **Dấu hiệu:** Funding rate âm, OI tăng mạnh.
+- **Rủi ro:** Nếu giá tăng nhẹ, Short bị buộc đóng → short squeeze → giá tăng nhanh.
+- **Trong alert:** Label "Crowded Short", Funding mang dấu `-`.
+
+## Squeeze Risk
+
+Điều kiện đặc biệt khi: Score > 85 **và** giá đang đứng yên (Stall = YES).
+
+Áp lực tích tụ lớn, chưa biết sẽ nổ theo hướng nào. Cần chú ý hướng của Funding để đoán xu hướng tiềm năng.
+
+::: tip Đọc hướng của Squeeze
+- Funding P > 50 → Long side đông → nguy cơ **dump**
+- Funding P < 50 → Short side đông → nguy cơ **short squeeze (pump)**
+:::
+
+## Funding Rate (P-value)
+
+Funding Rate là phí định kỳ trao đổi giữa Long và Short (thường mỗi 8 giờ).
+
+- Funding **dương** → Long trả Short → nhiều người muốn Long hơn Short.
+- Funding **âm** → Short trả Long → nhiều người muốn Short hơn Long.
+
+**P-value (P85, P92,...)** là phần trăm so với 7 ngày qua:
+- P85 = funding hiện tại đang cao hơn 85% các chu kỳ trong 7 ngày qua.
+- P > 80 = Long bias rất mạnh.
+
+## z_OI — Z-score của Open Interest
+
+OI (Open Interest) là tổng số hợp đồng đang mở trên thị trường.
+
+**z_OI** cho biết OI hiện tại cao hơn bình thường bao nhiêu lần (theo độ lệch chuẩn).
+
+| z_OI | Ý nghĩa |
+|---|---|
+| z < 1.5 | Bình thường |
+| 1.5 ≤ z < 2 | OI tăng đáng chú ý |
+| z ≥ 2 | OI tăng mạnh — bất thường so với 24h gần đây |
+
+## z_Volume — Z-score của Volume
+
+Tương tự z_OI nhưng đo Volume giao dịch. Volume spike kết hợp OI tăng thường là tín hiệu vào lệnh lớn.
+
+## Price Stall
+
+Giá gần như không di chuyển (< 0.2% trong 15 phút) trong khi OI vẫn tăng.
+
+Điều này có nghĩa ai đó đang giữ giá bằng cách đặt lệnh liên tục — áp lực sẽ tích tụ và thường dẫn đến biến động mạnh đột ngột.
+
+- **Stall = YES** → cảnh báo
+- **Stall = NO** → giá vẫn đang di chuyển bình thường

@@ -1,0 +1,46 @@
+# Bắt đầu nhanh
+
+Hướng dẫn này giúp bạn nhận alert đầu tiên trong vòng 5 phút.
+
+## Bước 1 — Tham gia Telegram channel
+
+Truy cập link Telegram channel (liên hệ admin để nhận link). Tất cả alert sẽ được gửi tại đây.
+
+::: tip
+Bật thông báo cho channel để không bỏ lỡ alert quan trọng.
+:::
+
+## Bước 2 — Hiểu alert đầu tiên
+
+Khi nhận được tin nhắn như sau:
+
+```
+🚨 BTCUSDT — Crowded Long
+Score:    92/100
+Funding:  +0.0312% (P85)
+ΔOI:      +2.3%  (z=2.1)
+Volume:   ×3.2 avg (z=1.9)
+Stall:    YES — price flat 15m
+📊 TradingView
+```
+
+Đây là thông báo thị trường đang mất cân bằng nghiêm trọng về phía Long.
+
+→ Xem mục [Đọc Alert Telegram](./telegram-alerts) để hiểu từng trường.
+
+→ Xem mục [Khái niệm cốt lõi](./concepts) để hiểu Score, Funding, OI có nghĩa là gì.
+
+## Bước 3 — Đăng ký Pro (tuỳ chọn)
+
+Tài khoản **Free** cho phép nhận alert Telegram và xem overview dashboard.
+
+Tài khoản **Pro** mở thêm:
+- Xem lịch sử signal (500 records)
+- Truy cập API
+- Chạy backtest
+
+→ Xem mục [API Reference](./api-reference) để biết thêm về Pro tier.
+
+::: warning Lưu ý
+Sản phẩm này **không dự đoán giá**. Alert chỉ phản ánh mức độ mất cân bằng thị trường — quyết định trade là của bạn.
+:::

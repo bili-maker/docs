@@ -1,0 +1,149 @@
+# API Reference
+
+::: warning Pro tier only
+API access yêu cầu tài khoản **Pro**. Free tier chỉ có thể gọi các endpoint không yêu cầu auth với rate limit thấp hơn.
+:::
+
+## Authentication
+
+Tất cả request cần authentication phải gửi kèm header:
+
+```
+X-API-Key: bms_<32-char-hex>
+```
+
+API key được lấy từ trang `/account` trên dashboard. Key chỉ hiển thị đầy đủ **1 lần** ngay sau khi tạo — hãy lưu lại ngay.
+
+::: danger
+Không dùng `Bearer` prefix. Header phải là `X-API-Key: bms_...` (không có `Bearer `).
+:::
+
+## Endpoints
+
+| Method | Path | Auth | Mô tả |
+|---|---|---|---|
+| `GET` | `/api/v1/signals` | Optional | Lịch sử signal |
+| `GET` | `/api/v1/signals/{symbol}/latest` | Optional | Signal mới nhất 1 symbol |
+| `GET` | `/api/v1/signals/latest-all` | Optional | Signal mới nhất tất cả symbols |
+| `POST` | `/api/v1/backtest` | Pro | Tạo backtest job |
+| `GET` | `/api/v1/backtest/{job_id}` | Pro | Poll kết quả backtest |
+| `GET` | `/api/v1/health` | None | Healthcheck |
+
+---
+
+### GET /api/v1/signals
+
+Lấy lịch sử signal với filter tuỳ chọn.
+
+**Query parameters:**
+
+| Param | Type | Mô tả |
+|---|---|---|
+| `symbol` | string | Filter theo symbol (VD: `BTC`, `BTCUSDT`) |
+| `label` | string | Filter theo label (`crowded_long`, `crowded_short`, `squeeze_risk`) |
+| `limit` | int | Số record trả về (Free: max 20, Pro: max 500) |
+
+**Ví dụ:**
+
+```bash
+curl https://api.b-maker.example.com/api/v1/signals \
+  -H "X-API-Key: bms_abc123..." \
+  -G -d "symbol=BTC" -d "limit=10"
+```
+
+**Response mẫu:**
+
+```json
+{
+  "signals": [
+    {
+      "id": 1234,
+      "symbol": "BTCUSDT",
+      "label": "crowded_long",
+      "score": 92,
+      "funding_rate": 0.0312,
+      "z_oi": 2.1,
+      "z_volume": 1.9,
+      "price_stall": true,
+      "ts": "2025-06-01T10:00:00Z"
+    }
+  ],
+  "total": 1
+}
+```
+
+| Field | Type | Mô tả |
+|---|---|---|
+| `symbol` | string | Symbol được cảnh báo |
+| `label` | string | Loại mất cân bằng |
+| `score` | int | Imbalance Score (0–100) |
+| `funding_rate` | float | Funding rate tại thời điểm signal |
+| `z_oi` | float | Z-score của Open Interest |
+| `z_volume` | float | Z-score của Volume |
+| `price_stall` | bool | Giá có đang đứng yên không |
+| `ts` | string | Timestamp (ISO 8601 UTC) |
+
+---
+
+### GET /api/v1/signals/{symbol}/latest
+
+Lấy signal mới nhất của 1 symbol cụ thể.
+
+```bash
+curl https://api.b-maker.example.com/api/v1/signals/BTCUSDT/latest \
+  -H "X-API-Key: bms_abc123..."
+```
+
+---
+
+### GET /api/v1/signals/latest-all
+
+Lấy signal mới nhất của tất cả symbols đang được theo dõi.
+
+```bash
+curl https://api.b-maker.example.com/api/v1/signals/latest-all \
+  -H "X-API-Key: bms_abc123..."
+```
+
+---
+
+### POST /api/v1/backtest (Pro)
+
+Tạo backtest job — phân tích lịch sử signal trong khoảng thời gian chỉ định.
+
+```bash
+curl -X POST https://api.b-maker.example.com/api/v1/backtest \
+  -H "X-API-Key: bms_abc123..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "symbols": ["BTC", "ETH"],
+    "since": "2025-01-01T00:00:00Z",
+    "until": "2025-12-31T00:00:00Z"
+  }'
+```
+
+Response trả về `job_id` để poll kết quả.
+
+---
+
+### GET /api/v1/backtest/{job_id} (Pro)
+
+Poll kết quả backtest job.
+
+```bash
+curl https://api.b-maker.example.com/api/v1/backtest/<job_id> \
+  -H "X-API-Key: bms_abc123..."
+```
+
+Backtest 1 năm × 10 symbols mất khoảng 10–30 giây. Poll sau 30–60 giây kể từ khi tạo job.
+
+---
+
+## Rate Limits
+
+| Tier | Request/phút | Max results |
+|---|---|---|
+| Free (không auth) | 10 req/min | 20 records |
+| Pro | 120 req/min | 500 records |
+
+Khi vượt rate limit, API trả về `429 Too Many Requests`.

@@ -1,0 +1,60 @@
+# Web Dashboard
+
+::: warning Phase 8
+Web Dashboard đang trong quá trình phát triển (Phase 8). Tài liệu này mô tả spec thiết kế — một số tính năng chưa available.
+:::
+
+## Tổng quan
+
+Web Dashboard cung cấp giao diện trực quan để theo dõi market imbalance theo thời gian thực và xem lịch sử signal.
+
+## Trang Overview (/)
+
+Bảng tổng hợp tất cả symbols đang được theo dõi, cập nhật mỗi 30 giây.
+
+| Cột | Mô tả |
+|---|---|
+| Symbol | Tên coin (VD: BTCUSDT) |
+| Score | Imbalance Score hiện tại (0–100) |
+| Label | Crowded Long / Crowded Short / Normal |
+| Funding | Funding rate hiện tại |
+| Last Alert | Thời gian alert gần nhất |
+
+**Màu Score:**
+- Xanh: Score < 50 — bình thường
+- Vàng: Score 50–80 — cần theo dõi
+- Đỏ: Score > 80 — cảnh báo cao
+
+Click vào bất kỳ symbol nào để xem lịch sử signal của symbol đó.
+
+## Trang Signal History (/signals)
+
+Xem toàn bộ lịch sử signal đã được ghi lại.
+
+**Filter có sẵn:**
+- Theo symbol (VD: chỉ xem BTC, ETH)
+- Theo label (Crowded Long / Short / Squeeze Risk)
+- Theo khoảng thời gian
+
+**Export CSV** — chỉ dành cho Pro tier (phiên bản sau).
+
+## Trang Account (/account)
+
+Quản lý tài khoản của bạn.
+
+- Xem tier hiện tại (Free / Pro)
+- Copy API key (chỉ hiển thị full 1 lần duy nhất sau khi tạo — lưu ngay)
+- Link / unlink Telegram account
+
+## Đăng nhập
+
+Dashboard dùng **magic link** — không cần password.
+
+**Quy trình đăng nhập:**
+1. Nhập email tại trang đăng nhập
+2. Mở email, click link được gửi đến
+3. Đăng nhập thành công
+
+::: warning
+Magic link hết hạn sau **15 phút** và chỉ dùng được **1 lần**. Nếu link hết hạn, quay lại trang đăng nhập và yêu cầu link mới.
+:::
