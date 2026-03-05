@@ -1,4 +1,8 @@
-# Đọc Alert Telegram
+---
+title: Đọc Alert Telegram
+---
+
+import { Aside } from '@astrojs/starlight/components';
 
 Hướng dẫn đọc và sử dụng các alert được gửi qua Telegram channel.
 
@@ -74,6 +78,6 @@ Hệ thống có cơ chế cooldown để tránh spam alert liên tục:
 
 **Ví dụ:** Nếu BTCUSDT vừa nhận Crowded Long lúc 10:00, alert Crowded Long tiếp theo sẽ không được gửi trước 12:00. Nhưng nếu Score vượt 85 và Stall = YES lúc 10:30, alert Squeeze Risk vẫn có thể được gửi bình thường.
 
-::: tip Kiểm tra lịch sử
+<Aside type="tip" title="Kiểm tra lịch sử">
 Nếu bạn cảm thấy nên có alert nhưng không nhận được, truy cập dashboard → Signal History để xem cooldown status.
-:::
+</Aside>

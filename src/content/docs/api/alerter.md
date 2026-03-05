@@ -1,4 +1,6 @@
-# Alerter API
+---
+title: Alerter API
+---
 
 `alerter` service — kiểm tra score và gửi Telegram alert.
 

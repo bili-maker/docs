@@ -1,4 +1,6 @@
-# Changelog
+---
+title: Changelog
+---
 
 Ghi lại tất cả thay đổi đáng kể theo thứ tự thời gian ngược.
 

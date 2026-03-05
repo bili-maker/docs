@@ -1,4 +1,6 @@
-# Scorer API
+---
+title: Scorer API
+---
 
 `scorer` service — tính toán Imbalance Score từ dữ liệu thị trường.
 

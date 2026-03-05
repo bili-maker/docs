@@ -1,4 +1,6 @@
-# Getting Started
+---
+title: Getting Started
+---
 
 Hướng dẫn setup môi trường phát triển và chạy b-maker-sys từ đầu.
 

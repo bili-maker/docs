@@ -1,0 +1,33 @@
+---
+title: bili-maker
+description: Futures Imbalance Engine — Binance USDT-M
+template: splash
+hero:
+  title: bili-maker
+  tagline: Phát hiện mất cân bằng Long/Short trên Binance USDT-M và gửi cảnh báo Telegram theo thời gian thực.
+  actions:
+    - text: Bắt đầu nhanh
+      link: /docs/user-guide/quickstart
+      icon: right-arrow
+      variant: primary
+    - text: Developer Guide
+      link: /docs/getting-started
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid stagger>
+  <Card title="Real-time Detection" icon="magnifier">
+    Thu thập dữ liệu Binance mỗi 5 phút — Funding Rate, Open Interest, Price, Volume cho 10 symbols USDT-M.
+  </Card>
+  <Card title="Imbalance Score 0–100" icon="bars">
+    Tính toán z_OI, z_Volume, funding_percentile, price_stall và tổng hợp thành điểm 0–100 với label rõ ràng.
+  </Card>
+  <Card title="Telegram Alerts" icon="telegram">
+    Cảnh báo tức thì khi Score > 85 hoặc Crowded + Price Stall. Cooldown thông minh tránh spam.
+  </Card>
+  <Card title="Developer Friendly" icon="open-book">
+    Monorepo rõ ràng, Docker Compose, CI/CD, docs đầy đủ. Dễ extend và maintain.
+  </Card>
+</CardGrid>

@@ -1,4 +1,6 @@
-# Collector API
+---
+title: Collector API
+---
 
 `collector` service — thu thập dữ liệu thị trường từ Binance mỗi 5 phút.
 

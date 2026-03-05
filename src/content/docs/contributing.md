@@ -1,4 +1,6 @@
-# Contributing
+---
+title: Contributing
+---
 
 Hướng dẫn đóng góp code cho b-maker-sys.
 

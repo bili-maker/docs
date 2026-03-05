@@ -1,4 +1,6 @@
-# DB Schema
+---
+title: DB Schema
+---
 
 PostgreSQL 16. Tất cả bảng được tạo qua Alembic migration `0001_init.py`.
 

@@ -1,4 +1,6 @@
-# Architecture
+---
+title: Architecture
+---
 
 b-maker-sys là hệ thống pipeline xử lý dữ liệu thị trường Futures theo thời gian thực, phát hiện mất cân bằng Long/Short và gửi cảnh báo qua Telegram.
 

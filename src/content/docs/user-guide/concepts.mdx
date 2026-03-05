@@ -1,10 +1,14 @@
-# Khái niệm cốt lõi
+---
+title: Khái niệm cốt lõi
+---
+
+import { Aside } from '@astrojs/starlight/components';
 
 Trang này giải thích các khái niệm bạn sẽ thấy trong alert và dashboard. Không cần biết kỹ thuật — chỉ cần hiểu **ý nghĩa thực tế**.
 
-::: info
+<Aside type="note">
 Sản phẩm này **không dự đoán giá**. Nó đo mức độ mất cân bằng Long/Short trên thị trường futures — quyết định trade là của bạn.
-:::
+</Aside>
 
 ## Imbalance Score (0–100)
 
@@ -41,10 +45,10 @@ Quá nhiều người đang giữ vị thế Short trên thị trường futures
 
 Áp lực tích tụ lớn, chưa biết sẽ nổ theo hướng nào. Cần chú ý hướng của Funding để đoán xu hướng tiềm năng.
 
-::: tip Đọc hướng của Squeeze
+<Aside type="tip" title="Đọc hướng của Squeeze">
 - Funding P > 50 → Long side đông → nguy cơ **dump**
-- Funding P < 50 → Short side đông → nguy cơ **short squeeze (pump)**
-:::
+- Funding P &lt; 50 → Short side đông → nguy cơ **short squeeze (pump)**
+</Aside>
 
 ## Funding Rate (P-value)
 
@@ -65,8 +69,8 @@ OI (Open Interest) là tổng số hợp đồng đang mở trên thị trườn
 
 | z_OI | Ý nghĩa |
 |---|---|
-| z < 1.5 | Bình thường |
-| 1.5 ≤ z < 2 | OI tăng đáng chú ý |
+| z &lt; 1.5 | Bình thường |
+| 1.5 ≤ z &lt; 2 | OI tăng đáng chú ý |
 | z ≥ 2 | OI tăng mạnh — bất thường so với 24h gần đây |
 
 ## z_Volume — Z-score của Volume

@@ -1,8 +1,12 @@
-# API Reference
+---
+title: API Reference
+---
 
-::: warning Pro tier only
+import { Aside } from '@astrojs/starlight/components';
+
+<Aside type="caution" title="Pro tier only">
 API access yêu cầu tài khoản **Pro**. Free tier chỉ có thể gọi các endpoint không yêu cầu auth với rate limit thấp hơn.
-:::
+</Aside>
 
 ## Authentication
 
@@ -14,19 +18,19 @@ X-API-Key: bms_<32-char-hex>
 
 API key được lấy từ trang `/account` trên dashboard. Key chỉ hiển thị đầy đủ **1 lần** ngay sau khi tạo — hãy lưu lại ngay.
 
-::: danger
+<Aside type="danger">
 Không dùng `Bearer` prefix. Header phải là `X-API-Key: bms_...` (không có `Bearer `).
-:::
+</Aside>
 
 ## Endpoints
 
 | Method | Path | Auth | Mô tả |
 |---|---|---|---|
 | `GET` | `/api/v1/signals` | Optional | Lịch sử signal |
-| `GET` | `/api/v1/signals/{symbol}/latest` | Optional | Signal mới nhất 1 symbol |
+| `GET` | `/api/v1/signals/[symbol]/latest` | Optional | Signal mới nhất 1 symbol |
 | `GET` | `/api/v1/signals/latest-all` | Optional | Signal mới nhất tất cả symbols |
 | `POST` | `/api/v1/backtest` | Pro | Tạo backtest job |
-| `GET` | `/api/v1/backtest/{job_id}` | Pro | Poll kết quả backtest |
+| `GET` | `/api/v1/backtest/[job_id]` | Pro | Poll kết quả backtest |
 | `GET` | `/api/v1/health` | None | Healthcheck |
 
 ---
@@ -85,7 +89,7 @@ curl https://api.b-maker.example.com/api/v1/signals \
 
 ---
 
-### GET /api/v1/signals/{symbol}/latest
+### GET /api/v1/signals/[symbol]/latest
 
 Lấy signal mới nhất của 1 symbol cụ thể.
 
@@ -126,12 +130,12 @@ Response trả về `job_id` để poll kết quả.
 
 ---
 
-### GET /api/v1/backtest/{job_id} (Pro)
+### GET /api/v1/backtest/[job_id] (Pro)
 
 Poll kết quả backtest job.
 
 ```bash
-curl https://api.b-maker.example.com/api/v1/backtest/<job_id> \
+curl https://api.b-maker.example.com/api/v1/backtest/[job_id] \
   -H "X-API-Key: bms_abc123..."
 ```
 

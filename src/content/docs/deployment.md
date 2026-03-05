@@ -1,4 +1,6 @@
-# Deployment
+---
+title: Deployment
+---
 
 Hướng dẫn deploy b-maker-sys lên VPS với Docker Compose.
 

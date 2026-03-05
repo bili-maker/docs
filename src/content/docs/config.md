@@ -1,4 +1,6 @@
-# Configuration
+---
+title: Configuration
+---
 
 Tất cả cấu hình đọc từ file `.env` qua `pydantic-settings`. Không có hardcoded value nào trong code.
 
