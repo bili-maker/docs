@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "b-maker-sys",
   description: "Futures Imbalance Engine — Binance USDT-M",
-  base: "/",
+  base: "/docs/",
   themeConfig: {
     nav: [
       { text: "User Guide", link: "/user-guide/quickstart" },
